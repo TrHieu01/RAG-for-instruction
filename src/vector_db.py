@@ -64,14 +64,19 @@ def list_documents():
         doc_info = {}
         
         for point in scroll_result:
-            if point.payload and "source" in point.payload:
-                source = point.payload["source"]
-                user_id = point.payload.get("user_id", "unknown")
-                if source not in unique_sources:
-                    unique_sources.add(source)
-                    doc_info[source] = {"user_id": user_id, "count": 1}
-                else:
-                    doc_info[source]["count"] += 1
+            if point.payload:
+                # Handle LangChain structure where metadata is nested
+                metadata = point.payload.get("metadata", point.payload)
+                
+                if "source" in metadata:
+                    source = metadata["source"]
+                    user_id = metadata.get("user_id", "unknown")
+                    
+                    if source not in unique_sources:
+                        unique_sources.add(source)
+                        doc_info[source] = {"user_id": user_id, "count": 1}
+                    else:
+                        doc_info[source]["count"] += 1
                     
         return doc_info
     except Exception as e:

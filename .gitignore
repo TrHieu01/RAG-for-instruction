@@ -1,0 +1,30 @@
+# General
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+.python-version
+.DS_Store
+
+# Enviroment Variables
+.env
+
+# Database and Storage
+data/
+qdrant_db/
+mem0_storage/
+mem0_storage_v*/
+
+# Logs
+*.log
+
+# IDEs
+.vscode/
+.idea/
+
+# OS
+Thumbs.db

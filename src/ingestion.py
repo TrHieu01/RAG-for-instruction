@@ -14,7 +14,7 @@ logger = setup_logger(__name__)
 # Batch size for adding documents to vector store
 BATCH_SIZE = 50
 
-def load_docling_markdown(file_path: str) -> Document:
+def load_docling_markdown(file_path: str, original_filename: str = None) -> Document:
     """Convert document to markdown using Docling"""
     start_time = time.time()
     logger.info(f"📄 Converting {file_path} using Docling...")
@@ -26,15 +26,16 @@ def load_docling_markdown(file_path: str) -> Document:
     elapsed = time.time() - start_time
     logger.info(f"✅ Docling conversion completed in {elapsed:.1f}s ({len(markdown_content):,} characters)")
     
-    metadata = {"source": os.path.basename(file_path)}
+    source_name = original_filename if original_filename else os.path.basename(file_path)
+    metadata = {"source": source_name}
     return Document(page_content=markdown_content, metadata=metadata)
 
-def process_document(file_path: str, user_id: str = "default") -> List[Document]:
+def process_document(file_path: str, user_id: str = "default", original_filename: str = None) -> List[Document]:
     """Process document with optimized chunking pipeline"""
     total_start = time.time()
     
     # 1. Load with Docling
-    doc = load_docling_markdown(file_path)
+    doc = load_docling_markdown(file_path, original_filename)
     
     # 2. Structural Split using Markdown Headers
     start_time = time.time()
@@ -60,7 +61,7 @@ def process_document(file_path: str, user_id: str = "default") -> List[Document]
     )
     
     final_chunks = []
-    source_name = os.path.basename(file_path)
+    source_name = original_filename if original_filename else os.path.basename(file_path)
     
     for i, h_chunk in enumerate(header_chunks):
         # Build Context from Metadata (Header Path)
@@ -105,13 +106,13 @@ def process_document(file_path: str, user_id: str = "default") -> List[Document]
     
     return final_chunks
 
-def ingest_file(file_path: str, user_id: str = "default"):
+def ingest_file(file_path: str, user_id: str = "default", original_filename: str = None):
     """Ingest file with batch processing for better performance"""
     logger.info(f"🚀 Starting ingestion for: {file_path} (User: {user_id})")
     total_start = time.time()
     
     # Process document
-    chunks = process_document(file_path, user_id)
+    chunks = process_document(file_path, user_id, original_filename)
     
     if not chunks:
         logger.warning("⚠️ No chunks to ingest.")

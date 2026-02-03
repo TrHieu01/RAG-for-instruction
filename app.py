@@ -320,7 +320,7 @@ def get_shared_memory_client():
     # We initialize with a system ID, but we only care about the .memory object
     try:
         # Check if lock file exists to fast fail or clean up
-        lock_file = "./mem0_storage_v3/.lock"
+        lock_file = "./mem0_storage_v4/.lock"
         if os.path.exists(lock_file):
             # In a real prod environment we might wait, but for local app
             # we can try to warn or sometimes the lock is stale.
@@ -426,7 +426,7 @@ with st.sidebar:
                 try:
                     st.write(f"📄 Converting document...")
                     # Pass effective_user_id to ingestion
-                    result = ingest_file(tmp_path, user_id=effective_user_id)
+                    result = ingest_file(tmp_path, user_id=effective_user_id, original_filename=uploaded_file.name)
                     
                     status.update(label="✅ Ingestion Complete!", state="complete", expanded=False)
                     st.session_state.is_ingesting = False
