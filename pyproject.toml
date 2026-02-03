@@ -1,0 +1,20 @@
+[project]
+name = "1"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "docling>=2.71.0",
+    "langchain>=1.2.8",
+    "langchain-classic>=1.0.1",
+    "langchain-community>=0.4.1",
+    "langchain-experimental>=0.4.1",
+    "langchain-ollama>=1.0.1",
+    "langchain-qdrant>=1.1.0",
+    "mem0ai>=1.0.2",
+    "qdrant-client>=1.16.2",
+    "rank-bm25>=0.2.2",
+    "sentence-transformers>=5.2.2",
+    "streamlit>=1.53.1",
+]
