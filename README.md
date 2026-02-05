@@ -1,8 +1,3 @@
-
-> **Trợ lý Tài liệu Thông minh** được hỗ trợ bởi RAG (Retrieval-Augmented Generation) Tiên tiến.
-
-Một ứng dụng chatbot RAG hiệu năng cao, cho phép bạn trò chuyện với các tài liệu PDF/DOCX của mình bằng cách sử dụng LLM cục bộ (Local LLM). Được xây dựng với giao diện Glassmorphism tuyệt đẹp và bộ nhớ dài hạn.
-
 ![Python](https://img.shields.io/badge/Python-3.10+-blue?style=flat-square&logo=python)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.53+-red?style=flat-square&logo=streamlit)
 ![Ollama](https://img.shields.io/badge/Ollama-Local_LLM-green?style=flat-square)
@@ -58,7 +53,5 @@ LLM_TEMP = 0.1                    # Độ sáng tạo (thấp = chính xác hơn
 CHUNK_SIZE = 1000                 # Kích thước mỗi đoạn văn bản
 CHUNK_OVERLAP = 200               # Độ chồng lặp để giữ ngữ cảnh
 
-<p align="center">
-</p>
 
 
